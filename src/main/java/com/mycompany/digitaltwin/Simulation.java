@@ -148,7 +148,8 @@ public class Simulation {
                         + place.getCustomerMinBudget().toDouble());
                 // индесы с любимыми пиццами 
                 ArrayList<Integer> favouritePizzaIndexes = new ArrayList<>();
-                // выбор любимой пиццы (неправильная генерация любимой пиццы, нужно пофиксить) 
+                // выбор любимой пиццы (неправильная генерация любимой пиццы, нужно пофиксить, возможно придётся поменять формат входных данных) 
+                
                 for(int j = 0; j < pizzas.size(); j++){
                     if(random.nextDouble() <= pizzas.get(j).getPopularity()){
                         favouritePizzaIndexes.add(j);
