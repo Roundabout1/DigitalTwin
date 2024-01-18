@@ -4,17 +4,31 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/*
+свединия, связанные с месторасположением пиццерии
+*/
 public class Place {
+    // название (неиспользуемая переменная)
     private String name;
+    // население города
     private int population;
+    // количество потенциальных клиентов, проходящих мимо пиццерии каждый будний день
     private int weekDayPasser;
+    // количество потенциальных клиентов, проходящих мимо пиццерии каждый выходной день
     private int weekendDayPasser;
+    // количество потенциальных клиентов, которые могут заказать доставку 
     private int deliveryNum;
-    private Money cost;
+    // стоимость содержания места (аренда, электричество, отопление и т.д.) за один месяц
+    private Money montlyCost;
+    // вместимость пиццерии, сколько клиентов максимум может находиться в пиццерии одновременно
     private int numSeat;
+    // вероятность того, что прохожий закглянет в пиццерию
     private double passerProbability;
+    // вероятность заказа доставки 
     private double deliveryProbability;
+    // минимальное количество денег, который потенциальный клиент готов и может потратить в пиццерии
     private Money customerMinBudget;
+    // максимальное количество денег, который потенциальный клиент готов потратить на заказ пиццы
     private Money customerMaxBudget;
 
     public Place(File input){
@@ -25,7 +39,7 @@ public class Place {
             e.printStackTrace();
         }
         population = in.nextInt();
-        cost = new Money(in.nextInt());
+        montlyCost = new Money(in.nextInt());
         numSeat = in.nextInt();
         passerProbability = in.nextDouble();
         weekDayPasser = in.nextInt();
@@ -69,11 +83,11 @@ public class Place {
     }
 
     public Money getCost() {
-        return cost;
+        return montlyCost;
     }
 
     public void setCost(Money cost) {
-        this.cost = cost;
+        this.montlyCost = cost;
     }
 
     public int getNumSeat() {
@@ -132,7 +146,7 @@ public class Place {
                 ", weekDayPasser=" + weekDayPasser +
                 ", weekendDayPasser=" + weekendDayPasser +
                 ", deliveryNum=" + deliveryNum +
-                ", cost=" + cost +
+                ", cost=" + montlyCost +
                 ", numSeat=" + numSeat +
                 ", passerProbability=" + passerProbability +
                 ", deliveryProbability=" + deliveryProbability +

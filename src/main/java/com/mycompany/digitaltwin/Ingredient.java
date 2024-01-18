@@ -3,12 +3,15 @@ package com.mycompany.digitaltwin;
 // ингридиент - это то, из чего состоит пицца
 public class Ingredient implements Sold{
     private int id;
+    // название ингридиента
     private String name;
-    //единица измерения
+     // название единицы измерения ингридиента
     private String unit;
+    // минимально возможная стоимость ингридиента на ранке
     private Money min_cost;
+    // максимально возможная стоимость ингридиента на рынке
     private Money max_cost;
-    //количество (в ед. измерениях) за покупку 1 шт.
+    // количество игридиента в соответствующих единицах измерениях, содержащихся в одной штуке
     private int num_unit;
 
     public Ingredient(int id, String name, String unit, Money min_cost, Money max_cost, int num_unit) {

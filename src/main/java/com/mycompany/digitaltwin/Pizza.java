@@ -2,12 +2,20 @@ package com.mycompany.digitaltwin;
 
 import java.util.ArrayList;
 
+/*
+рецепт пиццы
+*/
 public class Pizza implements Sold{
     private final int id;
+    // название пиццы
     private final String name;
+    // время приготовления пиццы в минутах
     private int minutes;
+    // вероятность того, что пицца окажется любимой у клиента
     private double popularity;
+    // необходимые ингридиенты для приготовления пиццы
     private ArrayList<Ingredient> ingredients;
+    // количество каждого ингридиента, которое должно содержаться в пицце
     private ArrayList<Double> numIngredient;
 
     public Pizza(int id, String name, int minutes, double popularity, ArrayList<Ingredient> ingredients, ArrayList<Double> numIngredient) {

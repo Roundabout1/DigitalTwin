@@ -1,5 +1,7 @@
 package com.mycompany.digitaltwin;
-
+/*
+представление о работнике
+*/
 public class Employee {
     //ежемесячная зарплата
     private Money salary;

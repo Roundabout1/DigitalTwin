@@ -1,10 +1,12 @@
 package com.mycompany.digitaltwin;
 
 import java.util.ArrayList;
-
+/*
+хранение нагрузки работников
+*/
 public class TaskManager {
     private ArrayList<Employee> employees;
-    //время (в минутах) к которому работник выполнит все свои задачи
+    // время (в минутах) к которому работник выполнит все свои задачи
     private int[] load;
 
     public TaskManager(ArrayList<Employee> employees) {

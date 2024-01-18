@@ -1,5 +1,7 @@
 package com.mycompany.digitaltwin;
-
+/*
+счётчик для выдачи ID 
+*/
 public class IDcounter {
     private int id;
 

@@ -11,6 +11,7 @@ com\mycompany\digitaltwin\Job.class
 com\mycompany\digitaltwin\Simulation.class
 com\mycompany\digitaltwin\Person.class
 com\mycompany\digitaltwin\Order.class
+com\mycompany\digitaltwin\FilePathes.class
 com\mycompany\digitaltwin\Money.class
 com\mycompany\digitaltwin\CustomerGroup.class
 com\mycompany\digitaltwin\Pizza.class

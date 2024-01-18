@@ -1,9 +1,11 @@
 package com.mycompany.digitaltwin;
-
+/*
+посетитель пиццерии
+*/
 public class Customer{
     private int id;
     private Money money;
-    //максимальное время ожидание заказа (в минутах)
+    // максимальное время ожидание заказа (в минутах)
     private int patience;
     private Pizza favourite;
 

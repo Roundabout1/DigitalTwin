@@ -8,14 +8,10 @@ import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Random;
-
+/*
+симуляции бизнеса
+*/
 public class Simulation {
-    //public static int workingTime = 480;
-    //public static int stdDeviation = 120;
-    //public static double recommendationChance = 0.1;
-    //отклонение от ожидаемого количества клиентов
-    //public static double customerDistribution = 0.05;
-    //public static int waiterTime = 3;
     private Company company;
     private ArrayList<Pizza> pizzas;
     private ArrayList<Money> prices;
@@ -31,18 +27,25 @@ public class Simulation {
         }
         this.random = new Random();
     }
-
+    
+    /*
+    запуск симуляции
+    days - количество дней на протяжении которых будет работать симуляция
+    margin - наценка на товары
+    groupSize - максимальный размер группы, которая может сформироваться из клиентов, группы заходят в пиццерию одновременно и уходят одновременно
+    workingTime - количество минут на протяжении которых работает пиццерия
+    recommendationChance - шанс того, что клиент порекомендует пиццерию своим друзьям
+    customerDistribution - отклонение от ожидаемого количества клиентов
+    waiterTime - время, затраченное на обслуживание клиента или группы клиентов одним официантом/кассиром
+    */
     public void run(int days, double margin, int groupSize, int workingTime, double recommendationChance, double customerDistribution, int waiterTime){
         Place place = company.getPlace();
+        // файл, в который будет записываться результат за каждый день симуляции 
         File outputFile = new File(FilePathes.OUTPUT_PATH);
+        // Удаление файла с данными, которые были получены до симуляции
         outputFile.delete();
         outputFile = new File(FilePathes.OUTPUT_PATH);
-        /*try {
-            FileWriter ingPrices = new FileWriter("Data/output/IngredientPrices", true);
-            FileWriter pizPrices = new FileWriter("Data/output/PizzaPrices", true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+   
 
         try {
             FileWriter fstream1 = new FileWriter(FilePathes.OUTPUT_FILE);// конструктор с одним параметром - для перезаписи
@@ -52,37 +55,34 @@ public class Simulation {
         } catch (Exception e) {
             System.err.println("Error in file cleaning: " + e.getMessage());
         }
-
+        
         for(int day = 0; day < days; day++){
+            // стоимость покупки продоваемых товаров
             Money[] buyCost = new Money[company.getGoods().size()];
-            //каждые 4 недели меняется цена на ингредиенты и соответственно на пиццу
-            //также выплачивается зарплата всем сотрудникам
+            // каждые 4 недели меняется цена на ингредиенты и соответственно на пиццу
+            // также выплачивается зарплата всем сотрудникам
             if(day%28 == 0){
                 company.paySalary();
-                //меняются цены на ингредиенты
+                // меняются цены на ингредиенты
                 for(int i = 0; i < prices.size(); i++){
                     Ingredient ingredient = ingredients.get(i);
                     int min = ingredient.getMin_cost().getRub();
                     int max = ingredient.getMax_cost().getRub();
+                    // цены генерируются случайным образом
                     Money priceForNumUnits = new Money(random.nextInt(max - min) + min, random.nextInt(99));
+                    // цена за 1 единицу измерения (например, из цены за 1000 грамм муки выводится цена за 1 грамм муки
                     Money priceForOneUnit = new Money(priceForNumUnits.toDouble()/ingredient.getNum_unit());
                     this.prices.set(i, priceForOneUnit);
 
                 }
                 //System.out.println(this.prices);
-                //меняются цены на пиццу
+                // меняются цены на пиццу из-за новых цен на ингридиенты на рынке
                 for(int i = 0; i < pizzas.size(); i++){
                     Money buyCostCur = new Money(0);
                     Pizza pizza = pizzas.get(i);
                     for(int j = 0; j < pizza.getIngredients().size(); j++){
                         Ingredient ing = pizza.getIngredients().get(j);
                         double num = pizza.getNumIngredient().get(j);
-                        /*if(i == 1) {
-                            System.out.println(ing.getName());
-                            System.out.println(prices.get(ing.getId()));
-                            System.out.println(num);
-                            System.out.println(ing.getId());
-                        }*/
                         buyCostCur.add(new Money(num*prices.get(ing.getId()).toDouble()));
                     }
                     buyCost[i] = buyCostCur;
@@ -92,13 +92,14 @@ public class Simulation {
                 //System.out.println(company.getGoods());
 
             }
-            //в начале каждой недели закупаемся
+            // в начале каждой недели закупаемся ингридиентами
             if(day%7 == 0){
                 /*double approximateCustomerNum = 7*(company.getAdGrow() + (
                         place.getPasserProbability()*(place.getWeekDayPasser() +
                         place.getWeekendDayPasser()) +
                                 place.getDeliveryProbability()*place.getDeliveryNum()
                 ));*/
+                // предположительное количество посетителей на следующей недели
                 double approximateCustomerNum = 7*(company.getAdGrow() + (
                         place.getPasserProbability()*(place.getWeekDayPasser() +
                                 place.getWeekendDayPasser())
@@ -106,12 +107,12 @@ public class Simulation {
                 approximateCustomerNum += (approximateCustomerNum - company.getAdGrow())* recommendationChance;
                 approximateCustomerNum += approximateCustomerNum*customerDistribution;
                 //System.out.println((int)approximateCustomerNum);
-
+                
+                // предположительное количество покупок каждой из пицц
                 double[] numBuy = new double[pizzas.size()];
                 for(int i = 0; i < numBuy.length; i++){
                     Pizza curPizza = pizzas.get(i);
                     numBuy[i] = approximateCustomerNum*curPizza.getPopularity();
-                   // System.out.println(numBuy[i]);
                     Money totalCost = new Money(0);
                     for(int j = 0; j < curPizza.getIngredients().size(); j++){
                         Ingredient curIngredient = curPizza.getIngredients().get(j);
@@ -129,7 +130,7 @@ public class Simulation {
                 }
             }
 
-            //генерируем клиентов
+            // генерируем клиентов
             IDcounter cntCustomer = new IDcounter();
             //int todayCustomerDeliverySize = (int)Math.round(place.getDeliveryNum()*place.getDeliveryProbability());
             int todayCustomerPasserSize;
@@ -140,21 +141,22 @@ public class Simulation {
             }
             todayCustomerPasserSize = distribute(todayCustomerPasserSize, customerDistribution);
             //todayCustomerDeliverySize = distribute(todayCustomerDeliverySize);
-            //System.out.printf("size = %d %d\n", todayCustomerPasserSize, todayCustomerDeliverySize);
             ArrayList<Customer> customers = new ArrayList<>();
             for(int i = 0; i < todayCustomerPasserSize; i++){
                 Money money = new Money(random.nextDouble()*
                         (place.getCustomerMaxBudget().toDouble()-place.getCustomerMinBudget().toDouble())
                         + place.getCustomerMinBudget().toDouble());
-                ArrayList<Integer> indexes = new ArrayList<>();
+                // индесы с любимыми пиццами 
+                ArrayList<Integer> favouritePizzaIndexes = new ArrayList<>();
+                // выбор любимой пиццы (неправильная генерация любимой пиццы, нужно пофиксить) 
                 for(int j = 0; j < pizzas.size(); j++){
                     if(random.nextDouble() <= pizzas.get(j).getPopularity()){
-                        indexes.add(j);
+                        favouritePizzaIndexes.add(j);
                     }
                 }
                 Pizza favourite;
-                if(indexes.size() != 0){
-                    favourite = pizzas.get(random.nextInt(indexes.size()));
+                if(favouritePizzaIndexes.size() != 0){
+                    favourite = pizzas.get(random.nextInt(favouritePizzaIndexes.size()));
                 }else{
                     favourite = pizzas.get(random.nextInt(pizzas.size()));
                 }
@@ -162,26 +164,28 @@ public class Simulation {
                 //System.out.printf("Customer %d %s\n", i, customers.get(i).toString());
 
             }
-
+            
+            // генерация групп, состоящих из клиентов, сгенерированных ранее (1 человек считается за группу тоже)
             ArrayList<CustomerGroup> groups = new ArrayList<>();
             IDcounter groupCnt = new IDcounter();
             int index = 0;
-            while (index < todayCustomerPasserSize){
+            while (index < todayCustomerPasserSize) {
                 int nextIndex = Math.min(todayCustomerPasserSize, index + random.nextInt(groupSize)+1);
-                int arriving = (int)(random.nextGaussian()*workingTime/6) + workingTime/2;
-                arriving = Math.max(0, arriving);
-                arriving = Math.min(workingTime-1, arriving);
+                // время прибытия, переменная подчиняется нормальному распределению
+                int arrivingTime = (int)(random.nextGaussian()*workingTime/6) + workingTime/2;
+                arrivingTime = Math.max(0, arrivingTime);
+                arrivingTime = Math.min(workingTime-1, arrivingTime);
                 Customer[] curGroup = new Customer[nextIndex-index];
                 for(int i = 0; i < nextIndex-index; i++){
                     curGroup[i] = customers.get(i+index);
                 }
-                groups.add(new CustomerGroup(groupCnt.useID(), nextIndex - index, arriving, curGroup));
+                groups.add(new CustomerGroup(groupCnt.useID(), nextIndex - index, arrivingTime, curGroup));
                 index = nextIndex;
                 //System.out.println(arriving);
             }
+            // сортировка по времени приытия
             groups.sort(new CustomerGroupComparator());
-            /*for(int i = 0; i < groups.size(); i++)
-                System.out.println(groups.get(i).getArrivingTime());*/
+            
             ArrayList<Employee> waiters = new ArrayList<>();
             ArrayList<Employee> cooks = new ArrayList<>();
             for(Employee i : company.getEmployees()){
@@ -190,11 +194,13 @@ public class Simulation {
                 if(i.getJob() == Job.cook)
                     cooks.add(i);
             }
+            
             TaskManager waiterManager = new TaskManager(waiters);
             TaskManager cookManager = new TaskManager(cooks);
             int freeSeat = place.getNumSeat();
             ArrayDeque<Pair> seatQueue = new ArrayDeque<>();
-            for(int i = 0; i < groups.size(); i++){
+            // обслуживание групп в порядке их прибывания, распределение заказов в зависимости между поварами и официантами 
+            for(int i = 0; i < groups.size(); i++) {
                 CustomerGroup group = groups.get(i);
                 int curTime = group.getArrivingTime();
                 while (seatQueue.size() > 0 && seatQueue.getFirst().end < curTime){
@@ -220,17 +226,20 @@ public class Simulation {
                 int wt = waiterManager.addTask(curTime, waiterTime, workingTime);
                 int ct = cookManager.addTask(wt, order.getMinutes(), workingTime);
                 //System.out.printf("%d %d\n", wt, ct);
+                // нету свободного повара, либо официанта, способного обслужить группу, до того, как у группы закончится терпение
                 if(wt == -1 || ct == -1){
                     continue;
                 }
                 freeSeat -= group.getSize();
                 seatQueue.addLast(new Pair(group.getSize(), ct));
                 company.getBudget().add(order.getCost());
+                // шанс увеличить известность пиццерии, за счёт того, что кто-то из группы порекомендует пиццерию
                 for(int j = 0; j < group.getSize(); j++){
                     if(random.nextDouble() <= recommendationChance) {
                         company.increaseAdGrow(1);
                     }
                 }
+                // вычитание ингридиентов из запасов для приготвления пиццы
                 for(int j = 0; j < groupPizzas.length; j++){
                     Pizza p = groupPizzas[j];
                     for(int k = 0; k < p.getNumIngredient().size(); k++){
@@ -242,9 +251,13 @@ public class Simulation {
                 }
                 //System.out.printf("%s %d %d %d %d\n", company.getBudget().toString(), curTime, freeSeat, wt, ct);
             }
+            
             company.increaseAdGrow();
+            
             System.out.printf("results = %d %s %f %d\n", day, company.getBudget().toString(), place.getPasserProbability(),
                     todayCustomerPasserSize);
+            
+            // запись результатов в файл
             try(FileWriter writer = new FileWriter(outputFile, true))
             {
                 // запись всей строки
@@ -265,10 +278,10 @@ public class Simulation {
             e.printStackTrace();
         }
     }
-
+    
+    // сгенерировать количество клиентов с учётом отклонения от ожидаемого количества клиентов 
     public int distribute(int size, double customerDistribution){
         int value = (int)Math.round(size*customerDistribution);
-        //System.out.println(value);
         return size + random.nextInt(2*value+1) - value;
     }
 

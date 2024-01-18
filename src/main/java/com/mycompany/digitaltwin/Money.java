@@ -1,5 +1,7 @@
 package com.mycompany.digitaltwin;
-
+/*
+представление денег, каждый объект состоит из рублей и копеек
+*/
 public class Money {
     private int rub;
     private int kopek;

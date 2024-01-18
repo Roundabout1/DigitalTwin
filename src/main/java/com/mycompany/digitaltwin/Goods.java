@@ -1,11 +1,14 @@
 package com.mycompany.digitaltwin;
 
+/*
+товар, который продаётся, на данный момент это только пицца
+*/
 public class Goods {
     private Money price;
     private Sold object;
     private double popularity;
     private int time;
-
+  
     public Goods(Pizza pizza, Money price){
         this.object = pizza;
         this.price = price;

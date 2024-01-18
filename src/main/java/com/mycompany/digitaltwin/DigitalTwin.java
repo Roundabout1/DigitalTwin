@@ -87,7 +87,7 @@ public class DigitalTwin {
             // название пиццы
             String name = pizzaIn.nextLine();
             System.out.println(name);
-            // время пригтовления пиццы
+            // время приготовления пиццы
             int time = pizzaIn.nextInt();
             // вероятность того, что пицца окажется любимой у клиента
             double popularity = pizzaIn.nextDouble();
@@ -132,7 +132,7 @@ public class DigitalTwin {
         int workingTime = confIn.nextInt();
         // шанс того, что клиент порекомендует пиццерию своим друзьям
         double recommendationChance = confIn.nextDouble();
-        // 
+        // отклонение от ожидаемого количества клиентов
         double customerDistribution = confIn.nextDouble();
         // время, затраченное на обслуживание клиента или группы клиентов одним официантом/кассиром
         int waiterTime = confIn.nextInt();

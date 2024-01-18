@@ -4,19 +4,24 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/*
+общие свединия о пиццерии, как о предприятии
+*/
 public class Company {
     private int id;
-    //бюджет
+    // бюджет
     private Money budget;
-    //расходы на рекламу
+    // расходы на рекламу
     private Money advertising;
-    //прирост узнаваемости пиццерии за счёт рекламы в день
+    // прирост узнаваемости пиццерии за счёт рекламы в день
     private double adGrow;
     private Place place;
+    // НДС
     private double VAT;
     ArrayList<Employee> employees;
+    // запасы товаров и ингридиентов
     private ArrayList<Double> reserves;
+    // продоваемые товары
     ArrayList<Goods> goods;
     public Company() {
         this.id = 0;
