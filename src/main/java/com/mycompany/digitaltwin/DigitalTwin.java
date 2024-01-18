@@ -11,14 +11,14 @@ public class DigitalTwin {
 
         public static void main(String[] args) {
         // загрузка данных о месте
-        File placeFile = new File("Data/Input/Place");
+        File placeFile = new File(FilePathes.PLACE);
         Place place = new Place(placeFile);
         System.out.println(place.toString());
         
         // загрузка данных о работниках
         ArrayList<Employee> employees = new ArrayList<>();
         IDcounter idcnt = new IDcounter();
-        File employeesFile = new File("Data/Input/employees");
+        File employeesFile = new File(FilePathes.EMPLOYEES);
         Scanner empScan = null;
         try {
             empScan = new Scanner(employeesFile);
@@ -41,7 +41,7 @@ public class DigitalTwin {
         // загрузка ингридиентов
         ArrayList<Ingredient> ingredients = new ArrayList<>();
         IDcounter ingIdCnt = new IDcounter();
-        File ingredientFile = new File("Data/Input/Ingredients");
+        File ingredientFile = new File(FilePathes.INGREDIENTS);
         Scanner ingredientIn = null;
         try {
             ingredientIn = new Scanner(ingredientFile);
@@ -72,7 +72,7 @@ public class DigitalTwin {
         
         // загрузка списка пицц
         ArrayList<Pizza> pizzas = new ArrayList<>();
-        File pizzaFile = new File("Data/Input/Pizza");
+        File pizzaFile = new File(FilePathes.PIZZA);
         IDcounter pizzaID = new IDcounter();
         Scanner pizzaIn = null;
         try {
@@ -110,12 +110,12 @@ public class DigitalTwin {
         System.out.println(pizzas);
         
         // загрузка данных о предприятии, а также передача уже существующих данные туда
-        File companyFile = new File("Data/Input/Company");
+        File companyFile = new File(FilePathes.COMPANY);
         Company company = new Company(companyFile, place, employees, pizzas, ingredients.size());
         System.out.println(company);
         
         // загрузка дополнительных параметров для симуляции
-        File confFile = new File("Data/Input/conf");
+        File confFile = new File(FilePathes.CONF);
         Scanner confIn = null;
         try {
             confIn = new Scanner(confFile);

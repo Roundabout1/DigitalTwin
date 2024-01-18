@@ -34,9 +34,9 @@ public class Simulation {
 
     public void run(int days, double margin, int groupSize, int workingTime, double recommendationChance, double customerDistribution, int waiterTime){
         Place place = company.getPlace();
-        File outputFile = new File("Data/output/output.txt");
+        File outputFile = new File(FilePathes.OUTPUT_PATH);
         outputFile.delete();
-        outputFile = new File("Data/output/output.txt");
+        outputFile = new File(FilePathes.OUTPUT_PATH);
         /*try {
             FileWriter ingPrices = new FileWriter("Data/output/IngredientPrices", true);
             FileWriter pizPrices = new FileWriter("Data/output/PizzaPrices", true);
@@ -45,7 +45,7 @@ public class Simulation {
         }*/
 
         try {
-            FileWriter fstream1 = new FileWriter("output.txt");// конструктор с одним параметром - для перезаписи
+            FileWriter fstream1 = new FileWriter(FilePathes.OUTPUT_FILE);// конструктор с одним параметром - для перезаписи
             BufferedWriter out1 = new BufferedWriter(fstream1); //  создаём буферезированный поток
             out1.write(""); // очищаем, перезаписав поверх пустую строку
             out1.close(); // закрываем
