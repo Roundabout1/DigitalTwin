@@ -3,7 +3,6 @@ package com.mycompany.digitaltwin;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class FrameMainMenu extends JFrame {
     
@@ -13,33 +12,23 @@ public class FrameMainMenu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create buttons
-        JButton company = new JButton("Company");
-        JButton conf = new JButton("Conf");
-        JButton employees = new JButton("Employees");
-        JButton ingredients = new JButton("Ingredients");
-        JButton pizza = new JButton("Pizza");
-        JButton place = new JButton("Place");
-        JButton start = new JButton("Start");
-
+        JButton start = new JButton("Старт");
+        JButton graph1 = new JButton("График 1");
+        JButton graph2 = new JButton("График 2");
+        JButton graph3 = new JButton("График 3");
         // Add buttons to the top panel
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
         topPanel.add(Box.createVerticalGlue());
-        topPanel.add(company);
-        topPanel.add(conf);
-        topPanel.add(employees);
-        topPanel.add(ingredients);
-        topPanel.add(pizza);
-        topPanel.add(place);
+        topPanel.add(start);
+        topPanel.add(graph1);
+        topPanel.add(graph2);
+        topPanel.add(graph3);
         topPanel.add(Box.createVerticalGlue());
 
-        // Add the start button to the bottom panel
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.add(start);
 
         // Add the top and bottom panels to the frame
         add(topPanel, BorderLayout.CENTER);
-        add(bottomPanel, BorderLayout.SOUTH);
 
         // Add an action listener to the start button
         start.addActionListener((ActionEvent e) -> {
@@ -47,13 +36,21 @@ public class FrameMainMenu extends JFrame {
             DigitalTwin.setup();
         });
         
+        graph1.addActionListener((ActionEvent e) -> {
+            System.out.println("The graph1 button was clicked!");
+        });
+        graph2.addActionListener((ActionEvent e) -> {
+            System.out.println("The graph2 button was clicked!");
+        });
+        graph3.addActionListener((ActionEvent e) -> {
+            System.out.println("The graph3 button was clicked!");
+        });
+        
         // Center the buttons horizontally
-        company.setAlignmentX(Component.CENTER_ALIGNMENT);
-        conf.setAlignmentX(Component.CENTER_ALIGNMENT);
-        employees.setAlignmentX(Component.CENTER_ALIGNMENT);
-        ingredients.setAlignmentX(Component.CENTER_ALIGNMENT);
-        pizza.setAlignmentX(Component.CENTER_ALIGNMENT);
-        place.setAlignmentX(Component.CENTER_ALIGNMENT);
+        start.setAlignmentX(Component.CENTER_ALIGNMENT);
+        graph1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        graph2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        graph3.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         setVisible(true);
     }

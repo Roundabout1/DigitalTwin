@@ -9,8 +9,8 @@ import java.util.Scanner;
 */
 public class DigitalTwin {
         public static void main(String[] args) {  
-            //FrameMainMenu mainMenu = new FrameMainMenu(); 
-            FrameCompany frame = new FrameCompany();
+            FrameMainMenu mainMenu = new FrameMainMenu(); 
+            //DrawGraph.draw();
     }
         
     public static void setup() {
@@ -147,5 +147,6 @@ public class DigitalTwin {
         //FrameMainMenu mainMenu = new FrameMainMenu();
 
         simulation.run();
+        
     }
 }
