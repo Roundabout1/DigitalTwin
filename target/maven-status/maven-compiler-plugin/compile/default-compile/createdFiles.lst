@@ -6,6 +6,7 @@ com\mycompany\digitaltwin\Pair.class
 com\mycompany\digitaltwin\IDcounter.class
 com\mycompany\digitaltwin\CustomerGroupComparator.class
 com\mycompany\digitaltwin\TaskManager.class
+com\mycompany\digitaltwin\FrameMainMenu.class
 com\mycompany\digitaltwin\Sold.class
 com\mycompany\digitaltwin\Ingredient.class
 com\mycompany\digitaltwin\Job.class
@@ -15,6 +16,7 @@ com\mycompany\digitaltwin\Order.class
 com\mycompany\digitaltwin\FilePathes.class
 com\mycompany\digitaltwin\Money.class
 com\mycompany\digitaltwin\CustomerGroup.class
+com\mycompany\digitaltwin\FrameCompany.class
 com\mycompany\digitaltwin\Pizza.class
 com\mycompany\digitaltwin\Customer.class
 com\mycompany\digitaltwin\Place.class

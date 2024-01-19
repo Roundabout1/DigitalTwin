@@ -17,7 +17,21 @@ public class Simulation {
     private ArrayList<Money> prices;
     private ArrayList<Ingredient> ingredients;
     private Random random;
-    public Simulation(Company company, PizzaList pizzas, ArrayList<Ingredient> ingredients){
+    // количество дней на протяжении которых будет работать симуляция
+    private int days;
+    // наценка на товары
+    private double margin;
+    // максимальный размер группы, которая может сформироваться из клиентов, группы заходят в пиццерию одновременно и уходят одновременно
+    private int groupSize;
+    // количество минут на протяжении которых работает пиццерия
+    private int workingTime;
+    // шанс того, что клиент порекомендует пиццерию своим друзьям
+    private double recommendationChance;
+    // отклонение от ожидаемого количества клиентов
+    private double customerDistribution;
+    // время, затраченное на обслуживание клиента или группы клиентов одним официантом/кассиром
+    private int waiterTime;
+    public Simulation(Company company, PizzaList pizzas, ArrayList<Ingredient> ingredients, int days,  double margin, int groupSize, int workingTime, double recommendationChance, double customerDistribution, int waiterTime){
         this.company = company;
         this.pizzas = pizzas;
         this.ingredients = ingredients;
@@ -26,19 +40,18 @@ public class Simulation {
             this.prices.add(new Money(0));
         }
         this.random = new Random();
-    }
-    
+        this.days = days;
+        this.margin = margin;
+        this.groupSize = groupSize;
+        this.workingTime = workingTime;
+        this.recommendationChance = recommendationChance;
+        this.customerDistribution = customerDistribution;
+        this.waiterTime = waiterTime;
+    }    
     /*
     запуск симуляции
-    days - количество дней на протяжении которых будет работать симуляция
-    margin - наценка на товары
-    groupSize - максимальный размер группы, которая может сформироваться из клиентов, группы заходят в пиццерию одновременно и уходят одновременно
-    workingTime - количество минут на протяжении которых работает пиццерия
-    recommendationChance - шанс того, что клиент порекомендует пиццерию своим друзьям
-    customerDistribution - отклонение от ожидаемого количества клиентов
-    waiterTime - время, затраченное на обслуживание клиента или группы клиентов одним официантом/кассиром
     */
-    public void run(int days, double margin, int groupSize, int workingTime, double recommendationChance, double customerDistribution, int waiterTime){
+    public void run(){
         Place place = company.getPlace();
         // файл, в который будет записываться результат за каждый день симуляции 
         File outputFile = new File(FilePathes.OUTPUT_PATH);

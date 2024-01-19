@@ -8,13 +8,17 @@ import java.util.Scanner;
 главный класс, который инициализирует программу
 */
 public class DigitalTwin {
-
-        public static void main(String[] args) {
-        // загрузка данных о месте
+        public static void main(String[] args) {  
+            //FrameMainMenu mainMenu = new FrameMainMenu(); 
+            FrameCompany frame = new FrameCompany();
+    }
+        
+    public static void setup() {
+         // загрузка данных о месте
         File placeFile = new File(FilePathes.PLACE);
         Place place = new Place(placeFile);
         System.out.println(place.toString());
-        
+
         // загрузка данных о работниках
         ArrayList<Employee> employees = new ArrayList<>();
         IDcounter idcnt = new IDcounter();
@@ -37,7 +41,7 @@ public class DigitalTwin {
         for(Employee i : employees){
             System.out.println(i);
         }
-        
+
         // загрузка ингридиентов
         ArrayList<Ingredient> ingredients = new ArrayList<>();
         IDcounter ingIdCnt = new IDcounter();
@@ -69,7 +73,7 @@ public class DigitalTwin {
             ingredients.add(ingredient);
         }
         System.out.println(ingredients);
-        
+
         // загрузка списка пицц
         PizzaList pizzas = new PizzaList();
         File pizzaFile = new File(FilePathes.PIZZA);
@@ -108,12 +112,12 @@ public class DigitalTwin {
             pizzas.add(new Pizza(pizzaID.useID(), name, time, popularity, pizzaIng, numIngredient));
         }
         System.out.println(pizzas);
-        
+
         // загрузка данных о предприятии, а также передача уже существующих данные туда
         File companyFile = new File(FilePathes.COMPANY);
         Company company = new Company(companyFile, place, employees, pizzas, ingredients.size());
         System.out.println(company);
-        
+
         // загрузка дополнительных параметров для симуляции
         File confFile = new File(FilePathes.CONF);
         Scanner confIn = null;
@@ -136,9 +140,12 @@ public class DigitalTwin {
         double customerDistribution = confIn.nextDouble();
         // время, затраченное на обслуживание клиента или группы клиентов одним официантом/кассиром
         int waiterTime = confIn.nextInt();
-        
+
         // инициализация и запуск симуляции
-        Simulation simulation = new Simulation(company, pizzas, ingredients);
-        simulation.run(days, margin, groupSize, workingTime, recommendationChance, customerDistribution, waiterTime);
+        Simulation simulation = new Simulation(company, pizzas, ingredients, days, margin, groupSize, workingTime, recommendationChance, customerDistribution, waiterTime);
+
+        //FrameMainMenu mainMenu = new FrameMainMenu();
+
+        simulation.run();
     }
 }
