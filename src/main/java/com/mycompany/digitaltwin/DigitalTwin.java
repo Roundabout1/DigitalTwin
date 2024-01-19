@@ -71,7 +71,7 @@ public class DigitalTwin {
         System.out.println(ingredients);
         
         // загрузка списка пицц
-        ArrayList<Pizza> pizzas = new ArrayList<>();
+        PizzaList pizzas = new PizzaList();
         File pizzaFile = new File(FilePathes.PIZZA);
         IDcounter pizzaID = new IDcounter();
         Scanner pizzaIn = null;

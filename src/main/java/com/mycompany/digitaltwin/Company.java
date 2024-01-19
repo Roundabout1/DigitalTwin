@@ -27,7 +27,7 @@ public class Company {
         this.id = 0;
     }
 
-    public Company(File input, Place place, ArrayList<Employee> employees, ArrayList<Pizza> pizzas, int numIngredient) {
+    public Company(File input, Place place, ArrayList<Employee> employees, PizzaList pizzas, int numIngredient) {
         this.place = place;
         this.employees = employees;
         Scanner in = null;

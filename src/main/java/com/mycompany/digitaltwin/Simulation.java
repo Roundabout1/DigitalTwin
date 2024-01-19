@@ -13,11 +13,11 @@ import java.util.Random;
 */
 public class Simulation {
     private Company company;
-    private ArrayList<Pizza> pizzas;
+    private PizzaList pizzas;
     private ArrayList<Money> prices;
     private ArrayList<Ingredient> ingredients;
     private Random random;
-    public Simulation(Company company, ArrayList<Pizza> pizzas, ArrayList<Ingredient> ingredients){
+    public Simulation(Company company, PizzaList pizzas, ArrayList<Ingredient> ingredients){
         this.company = company;
         this.pizzas = pizzas;
         this.ingredients = ingredients;
@@ -142,26 +142,12 @@ public class Simulation {
             todayCustomerPasserSize = distribute(todayCustomerPasserSize, customerDistribution);
             //todayCustomerDeliverySize = distribute(todayCustomerDeliverySize);
             ArrayList<Customer> customers = new ArrayList<>();
-            for(int i = 0; i < todayCustomerPasserSize; i++){
+            for(int i = 0; i < todayCustomerPasserSize; i++) {
                 Money money = new Money(random.nextDouble()*
                         (place.getCustomerMaxBudget().toDouble()-place.getCustomerMinBudget().toDouble())
                         + place.getCustomerMinBudget().toDouble());
-                // индесы с любимыми пиццами 
-                ArrayList<Integer> favouritePizzaIndexes = new ArrayList<>();
-                // выбор любимой пиццы (неправильная генерация любимой пиццы, нужно пофиксить, возможно придётся поменять формат входных данных) 
                 
-                for(int j = 0; j < pizzas.size(); j++){
-                    if(random.nextDouble() <= pizzas.get(j).getPopularity()){
-                        favouritePizzaIndexes.add(j);
-                    }
-                }
-                Pizza favourite;
-                if(favouritePizzaIndexes.size() != 0){
-                    favourite = pizzas.get(random.nextInt(favouritePizzaIndexes.size()));
-                }else{
-                    favourite = pizzas.get(random.nextInt(pizzas.size()));
-                }
-                customers.add(new Customer(cntCustomer.useID(), money, favourite));
+                customers.add(new Customer(cntCustomer.useID(), money, pizzas.randomPizza(random)));
                 //System.out.printf("Customer %d %s\n", i, customers.get(i).toString());
 
             }
